@@ -16,9 +16,10 @@ export class AppComponent {
   }
 
   init = async (): Promise<void> => {
-    this.structure = this.code.getStructure();
+    await this.code.init();
+    this.structure = await this.code.getStructure(0);
     console.log(this.structure);
-    const file = await this.code.retrieve('in-the-test', 'manager.js');
+    const file = await this.code.retrieve(0, 'in-the-test', 'manager.js');
     console.log(file);
   };
 }
