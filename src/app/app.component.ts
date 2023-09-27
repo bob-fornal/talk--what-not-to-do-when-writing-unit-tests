@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CodeService } from './core/services/code.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'talk--what-not-to-do-when-writing-unit-tests';
+  structure: any = {
+    ORDER: []
+  };
+
+  constructor(private code: CodeService) {
+    this.init();
+  }
+
+  init = async (): Promise<void> => {
+    this.structure = this.code.getStructure();
+    console.log(this.structure);
+    const file = await this.code.retrieve('in-the-test', 'manager.js');
+    console.log(file);
+  };
 }
